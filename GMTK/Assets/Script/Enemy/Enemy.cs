@@ -10,16 +10,21 @@ public class Enemy : MonoBehaviour
     public LayerMask wallLayer;
     public LayerMask groundLayer;
     public Transform groundDetectionPoint;
+    private float jumpCooldown = 4f;
+    private float jumpTimer = 0f;
+    public Transform targetPosition;
 
     private Rigidbody2D rb;
-    private bool isJumping = false;
+    public bool isJumping = false;
     private Transform player;
     private bool isFacingLeft;
+    private bool hasReachedTarget = false;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        targetPosition = GameObject.Find("TargetPosition").transform;
     }
 
     private void Update()
@@ -27,7 +32,8 @@ public class Enemy : MonoBehaviour
         //RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, wallDetectionDistance, wallLayer);
         RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, groundLayer);
         Vector2 raycastDirection = isFacingLeft ? Vector2.left : Vector2.right;
-        RaycastHit2D wallHit = Physics2D.Raycast(transform.position, transform.right, wallDetectionDistance, wallLayer);
+        RaycastHit2D wallHit = Physics2D.Raycast(transform.position, raycastDirection, wallDetectionDistance, wallLayer);
+
 
         Vector3 playerPosition = player.transform.position;
 
@@ -41,11 +47,16 @@ public class Enemy : MonoBehaviour
         }
         flip();
 
-        if (groundHit.collider != null || wallHit.collider != null)
+        if (hasReachedTarget)
         {
-            isJumping = false;
+            //float distanceToTarget = Vector2.Distance(transform.position, targetPosition.position);
+            //if (distanceToTarget < 0.1f)
+            //{
+                Jump();
+            //}
         }
-        if (wallHit.collider != null)
+
+        if (wallHit.collider != null && !isJumping)
         {
             Jump();
         }
@@ -55,12 +66,19 @@ public class Enemy : MonoBehaviour
             Vector2 direction = player.transform.position - transform.position;
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
+
+        //if (IsGrounded() && !hasAutoJumped)
+        //{
+        //    hasAutoJumped = false;
+        //}
     }
 
     private void Jump()
     {
-            rb.AddForce(Vector2.up * jumpForce);
-            isJumping = true;
+        Debug.Log("Hello");
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        isJumping = true;
         //ForceMode2D.Impulse
 
         //Collider2D groundCollider = Physics2D.OverlapCircle(groundDetectionPoint.position, groundDetectionRadius, groundLayer);
@@ -75,7 +93,26 @@ public class Enemy : MonoBehaviour
         if (collision.collider.CompareTag("Ground") || collision.collider.CompareTag("Wall"))
         {
             isJumping = false;
+            hasReachedTarget = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        hasReachedTarget = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        hasReachedTarget = false;
+    }
+
+    private bool IsGrounded()
+    {
+        Collider2D collider = Physics2D.OverlapCircle(transform.position, groundDetectionRadius, groundLayer);
+        return collider != null;
+        //Collider2D groundCollider = Physics2D.OverlapCircle(groundDetectionPoint.position, groundDetectionRadius, groundLayer);
+        //return groundCollider != null;
     }
 
     private void flip()
