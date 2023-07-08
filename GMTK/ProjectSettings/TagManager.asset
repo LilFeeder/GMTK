@@ -7,6 +7,8 @@ TagManager:
   - enemy
   - Wall
   - Ground
+  - Trap
+  - Lift
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - UI
   - Ground
   - Wall
-  - 
-  - 
+  - Trap
+  - Lift
   - 
   - 
   - 
