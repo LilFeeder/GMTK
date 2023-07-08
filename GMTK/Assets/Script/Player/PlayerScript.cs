@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -7,10 +8,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float climbSpeed;
 
     public Rigidbody2D playerRb;
     private BoxCollider2D playerCollider;
     private float horizontal;
+    private float verticle;
+    private bool isClimbing;
+    private bool isLadder;
+    public bool isChangeRespawn = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -50,5 +56,56 @@ public class PlayerScript : MonoBehaviour
             //AudioManager.Instance.PlayJumpSound();
             playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
         }
+
+        verticle = Input.GetAxis("Vertical");
+
+        if(isLadder && (verticle > 0f || verticle < 0f) && isGrounded())
+        {
+            isClimbing = true;
+        }
+        else if(isLadder && isGrounded())
+        {
+            isClimbing = true;
+        }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+        }
+
+        if (collision.gameObject.CompareTag("Respawn"))
+        {
+            isChangeRespawn = true;
+            Debug.Log("got touch respwan");
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            isClimbing = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(isClimbing)
+        {
+            playerRb.gravityScale = 0f;
+            playerRb.velocity = new Vector2(playerRb.velocity.x, verticle * 3f);
+        }
+        else
+            playerRb.gravityScale = 1f;
+
+    }
+
+    
+
+
 }

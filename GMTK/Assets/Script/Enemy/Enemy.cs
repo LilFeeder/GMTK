@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private float jumpCooldown = 4f;
     private float jumpTimer = 0f;
     public Transform targetPosition;
+    public Transform targetPosition2;
 
     private Rigidbody2D rb;
     public bool isJumping = false;
@@ -24,7 +25,9 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        targetPosition = GameObject.Find("TargetPosition").transform;
+        //targetPosition = GameObject.Find("TargetPosition").transform;
+        //targetPosition2 = GameObject.Find("TargetPosition2").transform;
+   
     }
 
     private void Update()
