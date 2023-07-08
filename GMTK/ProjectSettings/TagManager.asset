@@ -4,19 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - enemy
+  - Wall
+  - Ground
   - Trap
   - Lift
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Action
   - Water
   - UI
+  - Ground
+  - Wall
   - Trap
   - Lift
-  - 
-  - 
   - 
   - 
   - 
