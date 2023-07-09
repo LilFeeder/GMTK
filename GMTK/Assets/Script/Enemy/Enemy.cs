@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     public Transform enemyPoint;
     public Transform enemyPoint2;
     private float delayTimer = 0f;
+    public PlayerScript playerScript;
 
     private void Start()
     {
