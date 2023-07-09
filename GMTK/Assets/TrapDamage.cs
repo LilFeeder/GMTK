@@ -3,6 +3,7 @@ using UnityEngine;
 public class TrapDamage : MonoBehaviour
 {
     private PlayerScript playerScript;
+    private Enemy enemy;
     public Transform respawnPoint;
     public Transform respawnPoint2  ;
     public Transform enemyPoint;
@@ -13,7 +14,6 @@ public class TrapDamage : MonoBehaviour
     private void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-  
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
