@@ -14,29 +14,20 @@ public class Enemy : MonoBehaviour
     private float jumpTimer = 0f;
     public Transform targetPosition;
     public Transform targetPosition2;
-    private PlayerScript playerScript;
 
     private Rigidbody2D rb;
     public bool isJumping = false;
     private Transform player;
     private bool isFacingLeft;
     private bool hasReachedTarget = false;
-    public Animator anima;
-    public bool hitPlayer = false;
-    public GameObject enemyToMove;
-    public Transform respawnPoint;
-    public Transform respawnPoint2;
-    public Transform enemyPoint;
-    public Transform enemyPoint2;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         //targetPosition = GameObject.Find("TargetPosition").transform;
         //targetPosition2 = GameObject.Find("TargetPosition2").transform;
-
+   
     }
 
     private void Update()
@@ -64,17 +55,13 @@ public class Enemy : MonoBehaviour
             //float distanceToTarget = Vector2.Distance(transform.position, targetPosition.position);
             //if (distanceToTarget < 0.1f)
             //{
-            anima.SetBool("IsJump", true);
-            Jump();
-            AudioManager.Instance.PlayJumpSound();
+                Jump();
             //}
         }
 
         if (wallHit.collider != null && !isJumping)
         {
-            anima.SetBool("IsJump", true);
             Jump();
-            AudioManager.Instance.PlayJumpSound();
         }
 
         if (player != null)
@@ -82,10 +69,6 @@ public class Enemy : MonoBehaviour
             Vector2 direction = player.transform.position - transform.position;
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
-        //else
-        //{
-        //    AudioManager.Instance.StopCurrentSound();
-        //}
 
         //if (IsGrounded() && !hasAutoJumped)
         //{
@@ -114,18 +97,6 @@ public class Enemy : MonoBehaviour
         {
             isJumping = false;
             hasReachedTarget = false;
-            anima.SetBool("IsJump", false);
-            AudioManager.Instance.PlayRunSound();
-        }
-
-        if (collision.gameObject.tag == "Player")
-        {
-            hitPlayer = true;
-            HitPlayer();
-        }
-        else
-        {
-            hitPlayer = false;
         }
     }
 
@@ -159,21 +130,6 @@ public class Enemy : MonoBehaviour
             localScale.x = Mathf.Abs(localScale.x);
         }
         transform.localScale = localScale;
-    }
-
-    public void HitPlayer()
-    {
-
-        if (hitPlayer)
-        {
-            player.transform.position = respawnPoint.position;
-            enemyToMove.transform.position = enemyPoint.position;
-        }
-        else if (hitPlayer = true && playerScript.isChangeRespawn == true)
-        {
-            player.transform.position = respawnPoint2.position;
-            enemyToMove.transform.position = enemyPoint2.position;
-        }
     }
 
     private void OnDrawGizmosSelected()
