@@ -33361,7 +33361,6 @@ GameObject:
   - component: {fileID: 1453620771}
   - component: {fileID: 1453620773}
   - component: {fileID: 1453620772}
-  - component: {fileID: 1453620774}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: enemy
@@ -33463,13 +33462,6 @@ MonoBehaviour:
   targetPosition: {fileID: 262226458}
   targetPosition2: {fileID: 0}
   isJumping: 0
-  anima: {fileID: 1453620774}
-  hitPlayer: 0
-  enemyToMove: {fileID: 1453620768}
-  respawnPoint: {fileID: 1739268370}
-  respawnPoint2: {fileID: 152496614}
-  enemyPoint: {fileID: 382452895}
-  enemyPoint2: {fileID: 1832714877}
 --- !u!50 &1453620772
 Rigidbody2D:
   serializedVersion: 4
@@ -33517,26 +33509,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!95 &1453620774
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453620768}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: df577c535cbe8044bbd72281350cf028, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1454438172
 GameObject:
   m_ObjectHideFlags: 0

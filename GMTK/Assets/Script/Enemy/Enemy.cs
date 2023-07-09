@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     private float jumpTimer = 0f;
     public Transform targetPosition;
     public Transform targetPosition2;
-    private PlayerScript playerScript;
 
     private bool canMove = false;
     private bool movetTohitPlayer = false;
@@ -69,17 +68,13 @@ public class Enemy : MonoBehaviour
             //float distanceToTarget = Vector2.Distance(transform.position, targetPosition.position);
             //if (distanceToTarget < 0.1f)
             //{
-            anima.SetBool("IsJump", true);
             Jump();
-            AudioManager.Instance.PlayJumpSound();
             //}
         }
 
         if (wallHit.collider != null && !isJumping)
         {
-            anima.SetBool("IsJump", true);
             Jump();
-            AudioManager.Instance.PlayJumpSound();
         }
 
         if (canMove)
@@ -133,18 +128,6 @@ public class Enemy : MonoBehaviour
         {
             isJumping = false;
             hasReachedTarget = false;
-            anima.SetBool("IsJump", false);
-            AudioManager.Instance.PlayRunSound();
-        }
-
-        if (collision.gameObject.tag == "Player")
-        {
-            hitPlayer = true;
-            HitPlayer();
-        }
-        else
-        {
-            hitPlayer = false;
         }
     }
 
