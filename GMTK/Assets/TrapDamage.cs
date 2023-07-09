@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Compilation;
 using UnityEngine;
 
 public class TrapDamage : MonoBehaviour
@@ -17,7 +14,6 @@ public class TrapDamage : MonoBehaviour
     private void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-        enemy = GameObject.FindGameObjectWithTag("enemy").GetComponent<Enemy>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,6 +22,7 @@ public class TrapDamage : MonoBehaviour
         {
             MovePlayerPosition(collision.gameObject);
             MoveEnemyPosition();
+            PlayerDie.count++;
         }
         if (collision.gameObject.CompareTag("enemy"))
         {
@@ -37,19 +34,20 @@ public class TrapDamage : MonoBehaviour
 
     private void MovePlayerPosition(GameObject player)
     {
-        if (playerScript.isChangeRespawn == true)
+        if (playerScript.isChangeRespawn)
         {
             player.transform.position = respawnPoint2.position;
         }
         else
         {
             player.transform.position = respawnPoint.position;
+            
         }
     }
 
     private void MoveEnemyPosition()
     {
-        if (playerScript.isChangeRespawn == true)
+        if (playerScript.isChangeRespawn)
         {
             enemyToMove.transform.position = enemyPoint2.position;
         }

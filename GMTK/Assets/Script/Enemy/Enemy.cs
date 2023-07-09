@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour
     public Transform targetPosition2;
     private PlayerScript playerScript;
 
+    private bool canMove = false;
+    private bool movetTohitPlayer = false;
     private Rigidbody2D rb;
     public bool isJumping = false;
     private Transform player;
@@ -28,12 +31,14 @@ public class Enemy : MonoBehaviour
     public Transform respawnPoint2;
     public Transform enemyPoint;
     public Transform enemyPoint2;
+    private float delayTimer = 0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+        StartCoroutine(StartMovingAfterDelay(1f));
         //targetPosition = GameObject.Find("TargetPosition").transform;
         //targetPosition2 = GameObject.Find("TargetPosition2").transform;
 
@@ -77,10 +82,13 @@ public class Enemy : MonoBehaviour
             AudioManager.Instance.PlayJumpSound();
         }
 
-        if (player != null)
+        if (canMove)
         {
-            Vector2 direction = player.transform.position - transform.position;
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            if (player != null)
+            {
+                Vector2 direction = player.transform.position - transform.position;
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            }
         }
         //else
         //{
@@ -91,6 +99,17 @@ public class Enemy : MonoBehaviour
         //{
         //    hasAutoJumped = false;
         //}
+
+        if (movetTohitPlayer)
+        {
+            delayTimer += Time.deltaTime;
+            if (delayTimer >= 1f)
+            {
+                movetTohitPlayer = false;
+                StartCoroutine(StartMovingAfterDelay(1f));
+                delayTimer = 0f;
+            }
+        }
     }
 
     private void Jump()
@@ -164,16 +183,39 @@ public class Enemy : MonoBehaviour
     public void HitPlayer()
     {
 
-        if (hitPlayer)
+
+        if (hitPlayer && playerScript.isChangeRespawn == false)
         {
-            player.transform.position = respawnPoint.position;
-            enemyToMove.transform.position = enemyPoint.position;
+            if (canMove)
+            {
+                player.transform.position = respawnPoint.position;
+                enemyToMove.transform.position = enemyPoint.position;
+                canMove = false;
+                movetTohitPlayer = true;
+                PlayerDie.count++;
+            }
+
         }
-        else if (hitPlayer = true && playerScript.isChangeRespawn == true)
+        else if (hitPlayer && playerScript.isChangeRespawn == true)
         {
-            player.transform.position = respawnPoint2.position;
-            enemyToMove.transform.position = enemyPoint2.position;
+            if (canMove)
+            {
+                player.transform.position = respawnPoint2.position;
+                enemyToMove.transform.position = enemyPoint2.position;
+                canMove = false;
+                movetTohitPlayer = true;
+                PlayerDie.count++;
+            }
+
+
         }
+
+    }
+
+    private IEnumerator StartMovingAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canMove = true;
     }
 
     private void OnDrawGizmosSelected()
