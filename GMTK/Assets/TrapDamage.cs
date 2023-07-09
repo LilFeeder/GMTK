@@ -22,7 +22,8 @@ public class TrapDamage : MonoBehaviour
         {
             MovePlayerPosition(collision.gameObject);
             MoveEnemyPosition();
-            PlayerDie.count++;
+            //PlayerDie.count++;
+            Debug.Log("trap!!");
         }
         if (collision.gameObject.CompareTag("enemy"))
         {

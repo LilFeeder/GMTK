@@ -28188,13 +28188,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629442776}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03151635}
+  m_Offset: {x: 0.08249062, y: -0.03151635}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -28205,7 +28205,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.096967295}
+  m_Size: {x: 0.64174545, y: 0.096967295}
   m_EdgeRadius: 0
 --- !u!1 &658747185
 GameObject:
@@ -29500,11 +29500,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4284629143603823593, guid: c50f19e327163ec4fbf85882b760d8c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.362
+      value: -8.14
       objectReference: {fileID: 0}
     - target: {fileID: 4284629143603823593, guid: c50f19e327163ec4fbf85882b760d8c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.674
+      value: -2.67
       objectReference: {fileID: 0}
     - target: {fileID: 4284629143603823593, guid: c50f19e327163ec4fbf85882b760d8c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29859,7 +29859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -707, y: 491}
+  m_AnchoredPosition: {x: -692, y: 336}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &884834187
@@ -30289,7 +30289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -808, y: 490}
+  m_AnchoredPosition: {x: -793, y: 335.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950357066
@@ -30866,7 +30866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -908, y: 490}
+  m_AnchoredPosition: {x: -893, y: 335.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066582733
@@ -33312,7 +33312,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432234804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

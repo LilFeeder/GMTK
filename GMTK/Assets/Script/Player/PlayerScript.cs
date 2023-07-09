@@ -102,7 +102,13 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("trap"))
+        {
+            PlayerDie.count++;
+        }
+    }
 
 
 }
